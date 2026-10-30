@@ -49,73 +49,145 @@ input::placeholder{color:#98a2b3}.feedback{font-size:.85rem;min-height:1.2em;mar
 </div>
 <div id="result" aria-live="polite"></div>
 </section>
-<p class="small">Study note: the source page prints “ophthal-”; the common expanded spelling “ophthalm-” is also accepted. The listed form “-ner-” is retained as printed.</p>
+<p class="small">Spelling note: the correct form <strong>ophthal-</strong> is used.</p>
 </main>
 <script>
-const entries = [{"affix": "micro-", "meaning": "small"}, {"affix": "milli-", "meaning": "thousandth"}, {"affix": "mis-", "meaning": "wrong; incorrect"}, {"affix": "mito-", "meaning": "thread; filament"}, {"affix": "mole-", "meaning": "mass"}, {"affix": "mono-", "meaning": "one; single"}, {"affix": "mont-", "meaning": "mountain"}, {"affix": "mort-", "meaning": "death"}, {"affix": "mov-; -mot", "meaning": "move"}, {"affix": "morph-", "meaning": "shape; form"}, {"affix": "multi-", "meaning": "many"}, {"affix": "mycel-", "meaning": "threadlike"}, {"affix": "mycet-", "meaning": "fungus"}, {"affix": "myria-", "meaning": "many"}, {"affix": "moll-", "meaning": "soft"}, {"affix": "nas-", "meaning": "nose"}, {"affix": "nemat-", "meaning": "thread"}, {"affix": "neo-", "meaning": "new; recent"}, {"affix": "nephro-", "meaning": "kidney"}, {"affix": "-ner-", "meaning": "moist; liquid"}, {"affix": "neur-; nerv-", "meaning": "nerve; tendon"}, {"affix": "noct-; nox-", "meaning": "night"}, {"affix": "-node", "meaning": "knot"}, {"affix": "-nomy; -nome", "meaning": "distribute; arrange; law"}, {"affix": "non-", "meaning": "not"}, {"affix": "not-", "meaning": "back"}, {"affix": "nuc-", "meaning": "center"}, {"affix": "ob-", "meaning": "against"}, {"affix": "ocul-", "meaning": "eye"}, {"affix": "oct-", "meaning": "eight"}, {"affix": "odont-", "meaning": "tooth"}, {"affix": "-oid", "meaning": "like in form or shape"}, {"affix": "olf-", "meaning": "smell"}, {"affix": "omni-", "meaning": "all"}, {"affix": "oo-", "meaning": "egg"}, {"affix": "opthal-", "meaning": "eye"}, {"affix": "opt-; opsy", "meaning": "eye; vision"}, {"affix": "orb-", "meaning": "circle; round; ring"}, {"affix": "orth-", "meaning": "straight; correct; right"}, {"affix": "oscu-", "meaning": "mouth"}, {"affix": "oste-", "meaning": "bone"}, {"affix": "-ous", "meaning": "full of; abounding in"}, {"affix": "ov-", "meaning": "egg"}, {"affix": "oxy-", "meaning": "sharp; acid; oxygen"}, {"affix": "pachy-", "meaning": "thick"}, {"affix": "paleo-", "meaning": "old; ancient"}, {"affix": "palm-", "meaning": "broad; flat"}, {"affix": "pan-", "meaning": "all"}, {"affix": "par-", "meaning": "beside; near; equal; bring forth"}, {"affix": "path-; -pathy", "meaning": "disease; suffering"}, {"affix": "-ped", "meaning": "foot"}, {"affix": "pent-", "meaning": "five"}];
+const entries = [{"affix": "micro-", "meaning": "small"}, {"affix": "milli-", "meaning": "thousandth"}, {"affix": "mis-", "meaning": "wrong; incorrect"}, {"affix": "mito-", "meaning": "thread; filament"}, {"affix": "mole-", "meaning": "mass"}, {"affix": "mono-", "meaning": "one; single"}, {"affix": "mont-", "meaning": "mountain"}, {"affix": "mort-", "meaning": "death"}, {"affix": "mov-; -mot", "meaning": "move"}, {"affix": "morph-", "meaning": "shape; form"}, {"affix": "multi-", "meaning": "many"}, {"affix": "mycel-", "meaning": "threadlike"}, {"affix": "mycet-", "meaning": "fungus"}, {"affix": "myria-", "meaning": "many"}, {"affix": "moll-", "meaning": "soft"}, {"affix": "nas-", "meaning": "nose"}, {"affix": "nemat-", "meaning": "thread"}, {"affix": "neo-", "meaning": "new; recent"}, {"affix": "nephro-", "meaning": "kidney"}, {"affix": "-ner-", "meaning": "moist; liquid"}, {"affix": "neur-; nerv-", "meaning": "nerve; tendon"}, {"affix": "noct-; nox-", "meaning": "night"}, {"affix": "-node", "meaning": "knot"}, {"affix": "-nomy; -nome", "meaning": "distribute; arrange; law"}, {"affix": "non-", "meaning": "not"}, {"affix": "not-", "meaning": "back"}, {"affix": "nuc-", "meaning": "center"}, {"affix": "ob-", "meaning": "against"}, {"affix": "ocul-", "meaning": "eye"}, {"affix": "oct-", "meaning": "eight"}, {"affix": "odont-", "meaning": "tooth"}, {"affix": "-oid", "meaning": "like in form or shape"}, {"affix": "olf-", "meaning": "smell"}, {"affix": "omni-", "meaning": "all"}, {"affix": "oo-", "meaning": "egg"}, {"affix": "ophthal-", "meaning": "eye"}, {"affix": "opt-; opsy", "meaning": "eye; vision"}, {"affix": "orb-", "meaning": "circle; round; ring"}, {"affix": "orth-", "meaning": "straight; correct; right"}, {"affix": "oscu-", "meaning": "mouth"}, {"affix": "oste-", "meaning": "bone"}, {"affix": "-ous", "meaning": "full of; abounding in"}, {"affix": "ov-", "meaning": "egg"}, {"affix": "oxy-", "meaning": "sharp; acid; oxygen"}, {"affix": "pachy-", "meaning": "thick"}, {"affix": "paleo-", "meaning": "old; ancient"}, {"affix": "palm-", "meaning": "broad; flat"}, {"affix": "pan-", "meaning": "all"}, {"affix": "par-", "meaning": "beside; near; equal; bring forth"}, {"affix": "path-; -pathy", "meaning": "disease; suffering"}, {"affix": "-ped", "meaning": "foot"}, {"affix": "pent-", "meaning": "five"}];
 const $ = id => document.getElementById(id);
 let order = [];
-let checked = false;
+
 function shuffleArray(a){
   const b=[...a];
-  for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}
+  for(let i=b.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [b[i],b[j]]=[b[j],b[i]];
+  }
   return b;
 }
 function norm(s){
-  return s.toLowerCase().trim()
-    .replace(/[–—]/g,"-")
-    .replace(/\s+/g," ")
-    .replace(/[.]/g,"")
-    .replace(/−/g,"-");
+  return s.toLowerCase().trim().replace(/[–—−]/g,"-").replace(/\s+/g," ").replace(/[.]/g,"");
 }
-function splitAffixes(s){
-  return s.split(";").map(x=>norm(x)).filter(Boolean);
-}
-function splitMeanings(s){
-  return s.split(";").map(x=>norm(x)).filter(Boolean);
-}
+function splitAffixes(s){ return s.split(";").map(x=>norm(x)).filter(Boolean); }
+function splitMeanings(s){ return s.split(";").map(x=>norm(x)).filter(Boolean); }
+
 function acceptedAffixesForMeaning(entry){
-  // Accept all affixes that share at least one listed sense with this prompt.
-  const targetMeanings = new Set(splitMeanings(entry.meaning));
+  const target = new Set(splitMeanings(entry.meaning));
   const accepted = new Set();
   entries.forEach(candidate=>{
-    if(splitMeanings(candidate.meaning).some(m=>targetMeanings.has(m))){
+    if(splitMeanings(candidate.meaning).some(m=>target.has(m))){
       splitAffixes(candidate.affix).forEach(a=>accepted.add(a));
     }
   });
   return accepted;
 }
-function normalizeAffixInput(s){
-  return norm(s).replace(/\s/g,"");
-}
-function isCorrect(value,entry){
-  const typed = normalizeAffixInput(value);
+function isCorrect(value, entry){
+  const typed = norm(value).replace(/\s/g,"");
   if(!typed) return false;
   return [...acceptedAffixesForMeaning(entry)]
-    .some(a=>normalizeAffixInput(a)===typed);
+    .some(a=>a.replace(/\s/g,"")===typed);
+}
+function renderBank(){
+  const bank=$("bank");
+  bank.innerHTML="";
+  entries.forEach(e=>{
+    const chip=document.createElement("span");
+    chip.className="chip";
+    chip.textContent=e.affix;
+    bank.appendChild(chip);
+  });
+  $("bankCount").textContent=entries.length+" affixes";
+}
+function updateProgress(){
+  const count=order.filter(i=>$("a"+i) && $("a"+i).value.trim()).length;
+  $("progress").textContent=count+" of "+entries.length+" answered";
+}
+function render(){
+  const container=$("questions");
+  container.innerHTML="";
+  order.forEach((idx,n)=>{
+    const e=entries[idx];
+    const row=document.createElement("div");
+    row.className="question";
+
+    const label=document.createElement("label");
+    label.className="meaning";
+    label.htmlFor="a"+idx;
+    const num=document.createElement("span");
+    num.className="number";
+    num.textContent=(n+1)+".";
+    label.append(num,document.createTextNode(e.meaning));
+
+    const wrap=document.createElement("div");
+    const input=document.createElement("input");
+    input.id="a"+idx;
+    input.type="text";
+    input.autocomplete="off";
+    input.spellcheck=false;
+    input.placeholder="Type affix(es)…";
+    input.setAttribute("aria-label","Greek affix for: "+e.meaning);
+
+    const fb=document.createElement("div");
+    fb.className="feedback";
+    fb.id="f"+idx;
+
+    input.addEventListener("input",()=>{
+      fb.textContent="";
+      fb.className="feedback";
+      $("result").textContent="";
+      updateProgress();
+    });
+    wrap.append(input,fb);
+    row.append(label,wrap);
+    container.appendChild(row);
+  });
+  $("total").textContent=entries.length+" questions";
+  $("result").textContent="";
+  updateProgress();
 }
 function checkAnswers(){
   let score=0,answered=0;
   order.forEach(i=>{
     const e=entries[i], input=$("a"+i), fb=$("f"+i), val=input.value.trim();
+    if(val) answered++;
     fb.className="feedback";
-    if(val)answered++;
-    if(isCorrect(val,e.affix)){score++;fb.textContent="Correct";fb.classList.add("correct");}
-    else{fb.textContent=val?"Answer: "+e.affix:"Not answered · Answer: "+e.affix;fb.classList.add("incorrect");}
+    if(isCorrect(val,e)){
+      score++;
+      fb.textContent="Correct";
+      fb.classList.add("correct");
+    }else{
+      fb.textContent=val
+        ?"Accepted: "+[...acceptedAffixesForMeaning(e)].join(", ")
+        :"Not answered · Accepted: "+[...acceptedAffixesForMeaning(e)].join(", ");
+      fb.classList.add("incorrect");
+    }
   });
-  checked=true;
-  $("result").textContent="Score: "+score+" / "+entries.length+" ("+Math.round(score/entries.length*100)+"%) · "+answered+" attempted.";
+  $("result").textContent="Score: "+score+" / "+entries.length+
+    " ("+Math.round(score/entries.length*100)+"%) · "+answered+" attempted.";
 }
 function randomize(){
-  order=shuffleArray(entries.map((_,i)=>i));render();
+  order=shuffleArray(entries.map((_,i)=>i));
+  render();
 }
 $("shuffle").addEventListener("click",randomize);
 $("check").addEventListener("click",checkAnswers);
 $("reveal").addEventListener("click",()=>{
-  order.forEach(i=>{const fb=$("f"+i);fb.className="feedback";fb.textContent="Accepted: "+[...acceptedAffixesForMeaning(entries[i])].join(", ");});
+  order.forEach(i=>{
+    const fb=$("f"+i);
+    fb.className="feedback";
+    fb.textContent="Accepted: "+[...acceptedAffixesForMeaning(entries[i])].join(", ");
+  });
   $("result").textContent="Answers revealed. Use Randomize order to try again.";
 });
-$("clear").addEventListener("click",()=>{order.forEach(i=>{$("a"+i).value="";$("f"+i).textContent="";$("f"+i).className="feedback";});$("result").textContent="";checked=false;updateProgress();});
-renderBank();randomize();
+$("clear").addEventListener("click",()=>{
+  order.forEach(i=>{
+    $("a"+i).value="";
+    $("f"+i).textContent="";
+    $("f"+i).className="feedback";
+  });
+  $("result").textContent="";
+  updateProgress();
+});
+renderBank();
+randomize();
 </script>
 </body></html>
